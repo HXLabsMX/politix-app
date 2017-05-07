@@ -3,16 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.herxlabs.politix.MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
+
+    <Button
+        android:id="@+id/persona"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Persona"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 
+    <Button
+        android:id="@+id/fav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fav"
+        tools:layout_editor_absoluteX="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/persona" />
+
+    <Button
+        android:id="@+id/diputados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="diputados"
+        app:layout_constraintTop_toBottomOf="@+id/fav"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <Button
+        android:id="@+id/senadores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:text="Senadores"
+        app:layout_constraintTop_toBottomOf="@+id/diputados"
+        tools:layout_editor_absoluteX="38dp" />
 </android.support.constraint.ConstraintLayout>
