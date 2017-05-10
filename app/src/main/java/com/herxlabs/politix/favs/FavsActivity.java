@@ -7,7 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.herxlabs.politix.Politico;
+import com.herxlabs.politix.model.Politico;
 import com.herxlabs.politix.R;
 
 import java.util.ArrayList;
@@ -35,9 +35,9 @@ public class FavsActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(pAdapter);
 
-        prepareMovieData();
+        loadData();
     }
-    private void prepareMovieData() {
+    private void loadData() {
         Politico politico = new Politico("Alberto", "Adventure", "2015");
         politicosList.add(politico);
 

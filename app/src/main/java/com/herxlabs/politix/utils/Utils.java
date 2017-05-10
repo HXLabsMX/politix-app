@@ -1,16 +1,6 @@
 package com.herxlabs.politix.utils;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 
 import com.herxlabs.politix.R;
 
@@ -23,10 +13,10 @@ import java.lang.reflect.Field;
 //adopted from http://ruibm.com/2009/06/16/rounded-corner-bitmaps-on-android/
 public class Utils {
     private Context context;
-
     public Utils(Context current){
         context = current;
     }
+
     public static int getResId(String resName) {
 
         try {

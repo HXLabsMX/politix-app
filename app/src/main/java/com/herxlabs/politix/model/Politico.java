@@ -1,4 +1,4 @@
-package com.herxlabs.politix;
+package com.herxlabs.politix.model;
 
 /**
  * Created by HX on 06/05/2017.

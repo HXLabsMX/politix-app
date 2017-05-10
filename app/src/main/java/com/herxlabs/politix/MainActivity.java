@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.herxlabs.politix.diputados.DiputadosActivity;
 import com.herxlabs.politix.favs.FavsActivity;
 import com.herxlabs.politix.senadores.SenadoresActivity;
-import com.herxlabs.politix.utils.Utils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
