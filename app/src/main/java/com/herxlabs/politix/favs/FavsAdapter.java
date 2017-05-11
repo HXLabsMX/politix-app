@@ -59,7 +59,7 @@ public class FavsAdapter extends RecyclerView.Adapter<FavsAdapter.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Politico politico = favsList.get(position);
         holder.nombre.setText(politico.getNombre());
-        holder.foto.setImageResource(Utils.getResId("ab"));
+        holder.foto.setImageResource(Utils.getDrawableId("ab"));
         holder.descripcion.setText(politico.getEstado());
 //        holder.foto.setImageResource(Resources.getSystem().getIdentifier("ic_dialog_alert", "drawable", "android"));
 //        holder.foto.setImageResource(Resources.getSystem().getIdentifier("ab","drawable","com.herxlabs.politix"));

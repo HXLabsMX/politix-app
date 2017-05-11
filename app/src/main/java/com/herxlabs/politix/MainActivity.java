@@ -1,24 +1,27 @@
 package com.herxlabs.politix;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.herxlabs.politix.diputados.DiputadosActivity;
 import com.herxlabs.politix.favs.FavsActivity;
 import com.herxlabs.politix.senadores.SenadoresActivity;
+import com.herxlabs.politix.utils.Utils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
+    private Utils utils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        utils = new Utils(this);
 
     }
     @OnClick(R.id.persona)

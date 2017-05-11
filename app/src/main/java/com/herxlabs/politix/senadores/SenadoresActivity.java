@@ -1,62 +1,59 @@
 package com.herxlabs.politix.senadores;
 
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.TextView;
-
+import com.bluelinelabs.logansquare.LoganSquare;
 import com.herxlabs.politix.R;
+import com.herxlabs.politix.model.Politico;
+import com.herxlabs.politix.utils.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import butterknife.ButterKnife;
 
 public class SenadoresActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
-
+    private List<Politico> politicosList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private SenadoresAdapter pAdapter;
+    private Utils utils;
+    private ProgressDialog pDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_senadores);
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        utils = new Utils(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        recyclerView = (RecyclerView) findViewById(R.id.sen_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
 
+        new GetSenadores().execute();
     }
 
 
@@ -81,76 +78,104 @@ public class SenadoresActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
+    public void senParsing() {
+        final List<Politico> politicos;
+        try {
+            String json_file = Utils.openJson("senadores", utils.getContext());
+            //Log.d("fileH",json_file);
+            politicos = LoganSquare.parseList(json_file, Politico.class);
+            politicosList = politicos;
+            Log.d("fileH", politicosList.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_senadores, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
+        pAdapter.notifyDataSetChanged();
     }
 
     /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
+     * Async task class to get json by making HTTP call
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private class GetSenadores extends AsyncTask<Void, Void, Void> {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Showing progress dialog
+            pDialog = new ProgressDialog(SenadoresActivity.this);
+            pDialog.setMessage("Please wait...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
         }
 
         @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
+        protected Void doInBackground(Void... arg0) {
+            String json_file = "";
+            try {
+                json_file = Utils.openJson("senadores", utils.getContext());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            if (json_file != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(json_file);
+
+                    // Getting JSON Array node
+                    JSONArray json_result = jsonObj.getJSONArray("senadores");
+
+
+                    for (int i = 0; i < json_result.length(); i++) {
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        JSONObject c = json_result.getJSONObject(i);
+                        String nombre = c.optString("nombre");
+                        String apellido = c.optString("apellido");
+                        String estado = c.optString("estado");
+                        Politico politico = new Politico(nombre ,apellido, estado);
+                        politicosList.add(politico);
+                    }
+
+                } catch (final JSONException e) {
+////                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(getApplicationContext(),
+//                                    "Json parsing error: " + e.getMessage(),
+//                                    Toast.LENGTH_LONG)
+//                                    .show();
+//                        }
+//                    });
+
+                }
+            } else {
+//                Log.e(TAG, "Couldn't get json from server.");
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Toast.makeText(getApplicationContext(),
+//                                "Couldn't get json from server. Check LogCat for possible errors!",
+//                                Toast.LENGTH_LONG)
+//                                .show();
+//                    }
+//                });
+
+            }
+
             return null;
         }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            // Dismiss the progress dialog
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+
+            pAdapter = new SenadoresAdapter(politicosList);
+            recyclerView.setAdapter(pAdapter);
+            pAdapter.notifyDataSetChanged();;
+        }
+
     }
 }
