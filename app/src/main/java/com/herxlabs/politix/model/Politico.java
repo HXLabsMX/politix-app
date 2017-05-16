@@ -8,14 +8,13 @@ package com.herxlabs.politix.model;
 public class Politico {
     private String nombre;
     private String apellido;
-//    private String foto;
+    private String foto;
     private String estado;
-//    private String partido;
-//    private String email;
-//    private String twitter;
+    //    private String youtube;
 //    private String facebook;
-//    private String youtube;
-
+//    private String twitter;W
+//    private String email;
+//    private String partido;
     public Politico() {
     }
 
@@ -28,8 +27,17 @@ public class Politico {
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getApellido() {

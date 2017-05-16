@@ -42,7 +42,7 @@ public class Utils {
             return field.getInt(null);
         } catch (Exception e) {
             e.printStackTrace();
-            return -1;
+            return getDrawableId("sen_anabel_acosta_foto_web");
         }
     }
 

@@ -51,7 +51,7 @@ public class SenadoresAdapter extends RecyclerView.Adapter<SenadoresAdapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Politico politico = senList.get(position);
         holder.nombre.setText(politico.getNombre());
-        holder.foto.setImageResource(Utils.getDrawableId("ab"));
+        holder.foto.setImageResource(Utils.getDrawableId(politico.getFoto()));
         holder.descripcion.setText(politico.getEstado());
     }
 
