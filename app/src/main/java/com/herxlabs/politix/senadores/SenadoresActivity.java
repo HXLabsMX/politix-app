@@ -3,17 +3,18 @@ package com.herxlabs.politix.senadores;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,14 +53,12 @@ public class SenadoresActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
         recyclerView = (RecyclerView) findViewById(R.id.sen_recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         new GetSenadores().execute();
 
     }
@@ -89,12 +88,26 @@ public class SenadoresActivity extends AppCompatActivity {
     void filter(String text){
         List<Politico> temp = new ArrayList<>();
         for(Politico sen: politicosList){
-            //or use .contains(text)
-            if(sen.getNombre().contains(text)){
+            text = text.toLowerCase();
+            if(sen.getNombre().toLowerCase().contains(text)){
+                temp.add(sen);
+            }else if(sen.getApellido().toLowerCase().contains(text)){
+                temp.add(sen);
+            }else if(sen.getEstado().toLowerCase().contains(text)){
                 temp.add(sen);
             }
         }
         pAdapter.updateList(temp);
+
+        recyclerView.scrollToPosition(0);
+//        recyclerView.setY(1);
+        recyclerView.setAlpha(0.0f);
+        recyclerView.animate()
+                .translationY(0)
+                .setDuration(300)
+                .alpha(1.0f)
+                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .start();
     }
 
     private class GetSenadores extends AsyncTask<Void, Void, Void> {
@@ -183,7 +196,7 @@ public class SenadoresActivity extends AppCompatActivity {
                     public void run() {
                         filter(value);
                     }
-                }, 350);
+                }, 450);
                 }
             });
         }

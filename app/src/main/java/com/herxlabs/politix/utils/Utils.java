@@ -13,7 +13,6 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.lang.reflect.Field;
-import java.nio.CharBuffer;
 
 /**
  * Created by HX on 08/05/2017.
@@ -42,7 +41,7 @@ public class Utils {
             return field.getInt(null);
         } catch (Exception e) {
             e.printStackTrace();
-            return getDrawableId("sen_anabel_acosta_foto_web");
+            return getDrawableId("dummy");
         }
     }
 

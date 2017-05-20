@@ -1,7 +1,7 @@
 package com.herxlabs.politix.senadores;
 
 /**
- * Created by HX on 09/05/2017.
+ * Adaptador para el activity de senadores
  */
 
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.siyamed.shapeimageview.RoundedImageView;
-import com.herxlabs.politix.model.Politico;
 import com.herxlabs.politix.R;
+import com.herxlabs.politix.model.Politico;
 import com.herxlabs.politix.utils.Utils;
 
 import java.util.List;
