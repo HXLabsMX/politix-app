@@ -12,10 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.herxlabs.politix.R;
 import com.herxlabs.politix.model.Politico;
@@ -49,7 +49,9 @@ public class SenadoresActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         utils = new Utils(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         recyclerView = (RecyclerView) findViewById(R.id.sen_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -85,20 +87,16 @@ public class SenadoresActivity extends AppCompatActivity {
     }
 
     void filter(String text){
-        List<Politico> temp = new ArrayList();
+        List<Politico> temp = new ArrayList<>();
         for(Politico sen: politicosList){
             //or use .contains(text)
             if(sen.getNombre().contains(text)){
                 temp.add(sen);
             }
         }
-        //update recyclerview
         pAdapter.updateList(temp);
     }
 
-    /**
-     * Async task class to get json by making HTTP call
-     */
     private class GetSenadores extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -129,7 +127,7 @@ public class SenadoresActivity extends AppCompatActivity {
 
 
                     for (int i = 0; i < json_result.length(); i++) {
-                        HashMap<String, String> map = new HashMap<String, String>();
+                        HashMap<String, String> map = new HashMap<>();
                         JSONObject c = json_result.getJSONObject(i);
                         String nombre = c.optString("nombre");
                         String apellido = c.optString("apellido");
@@ -140,45 +138,31 @@ public class SenadoresActivity extends AppCompatActivity {
                     }
 
                 } catch (final JSONException e) {
-////                    Log.e(TAG, "Json parsing error: " + e.getMessage());
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(getApplicationContext(),
-//                                    "Json parsing error: " + e.getMessage(),
-//                                    Toast.LENGTH_LONG)
-//                                    .show();
-//                        }
-//                    });
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
 
                 }
-            } else {
-//                Log.e(TAG, "Couldn't get json from server.");
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(getApplicationContext(),
-//                                "Couldn't get json from server. Check LogCat for possible errors!",
-//                                Toast.LENGTH_LONG)
-//                                .show();
-//                    }
-//                });
-
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            // Dismiss the progress dialog
+
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
             pAdapter = new SenadoresAdapter(politicosList);
             recyclerView.setAdapter(pAdapter);
-            pAdapter.notifyDataSetChanged();;
+            pAdapter.notifyDataSetChanged();
             txtSearch.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -199,7 +183,7 @@ public class SenadoresActivity extends AppCompatActivity {
                     public void run() {
                         filter(value);
                     }
-                }, 400);
+                }, 350);
                 }
             });
         }
