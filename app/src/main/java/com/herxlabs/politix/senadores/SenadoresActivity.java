@@ -60,40 +60,6 @@ public class SenadoresActivity extends AppCompatActivity {
 
         new GetSenadores().execute();
 
-        txtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-//                final String value = s.toString();
-//                new Handler().postDelayed(new Runnable() {
-//                    public void run() {
-//                        filter(value);
-//                    }
-//                }, 400);
-            }
-        });
-    }
-    void filter(String text){
-        List<Politico> temp = new ArrayList<>();
-        for(Politico sen: politicosList){
-            //or use .contains(text)
-            if(sen.getNombre().contains(text)){
-                temp.add(sen);
-            }
-        }
-        //update recyclerview
-//        pAdapter.updateList(temp);
     }
 
     @Override
@@ -116,6 +82,18 @@ public class SenadoresActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    void filter(String text){
+        List<Politico> temp = new ArrayList();
+        for(Politico sen: politicosList){
+            //or use .contains(text)
+            if(sen.getNombre().contains(text)){
+                temp.add(sen);
+            }
+        }
+        //update recyclerview
+        pAdapter.updateList(temp);
     }
 
     /**
@@ -201,6 +179,29 @@ public class SenadoresActivity extends AppCompatActivity {
             pAdapter = new SenadoresAdapter(politicosList);
             recyclerView.setAdapter(pAdapter);
             pAdapter.notifyDataSetChanged();;
+            txtSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    // TODO Auto-generated method stub
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    // TODO Auto-generated method stub
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                final String value = s.toString();
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        filter(value);
+                    }
+                }, 400);
+                }
+            });
         }
 
     }

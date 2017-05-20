@@ -60,5 +60,10 @@ public class SenadoresAdapter extends RecyclerView.Adapter<SenadoresAdapter.MyVi
         return senList.size();
     }
 
+    public void updateList(List<Politico> list){
+        senList = list;
+        notifyDataSetChanged();
+    }
+
 }
 
