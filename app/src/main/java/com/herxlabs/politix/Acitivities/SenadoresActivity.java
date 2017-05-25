@@ -1,4 +1,4 @@
-package com.herxlabs.politix.senadores;
+package com.herxlabs.politix.Acitivities;
 
 
 import android.app.ProgressDialog;
@@ -19,8 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.herxlabs.politix.R;
-import com.herxlabs.politix.model.Politico;
-import com.herxlabs.politix.utils.Utils;
+import com.herxlabs.politix.Models.Politico;
+import com.herxlabs.politix.Utils.Utils;
+import com.herxlabs.politix.Adapters.SenadoresAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

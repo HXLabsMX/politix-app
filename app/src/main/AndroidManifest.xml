@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Acitivities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,33 +17,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PersonActivity"
+            android:name=".Acitivities.PersonActivity"
             android:label="@string/title_activity_person"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Acitivities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.herxlabs.politix.MainActivity" />
+                android:value="com.herxlabs.politix.Acitivities.MainActivity" />
         </activity>
         <activity
-            android:name=".diputados.DiputadosActivity"
-            android:label="@string/title_activity_diputados"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.herxlabs.politix.MainActivity" />
-        </activity>
-        <activity
-            android:name=".senadores.SenadoresActivity"
+            android:name=".Acitivities.SenadoresActivity"
             android:label="@string/title_activity_senadores"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Acitivities.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.herxlabs.politix.MainActivity" />
+                android:value="com.herxlabs.politix.Acitivities.MainActivity" />
         </activity>
-        <activity android:name=".favs.FavsActivity"></activity>
+        <activity android:name=".Acitivities.FavsActivity"></activity>
     </application>
 
 </manifest>

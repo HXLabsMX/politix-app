@@ -1,4 +1,4 @@
-package com.herxlabs.politix.favs;
+package com.herxlabs.politix.Acitivities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +7,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.herxlabs.politix.model.Politico;
+import com.herxlabs.politix.Adapters.FavsAdapter;
+import com.herxlabs.politix.Models.Politico;
 import com.herxlabs.politix.R;
 
 import java.util.ArrayList;

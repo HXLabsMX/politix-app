@@ -1,4 +1,4 @@
-package com.herxlabs.politix.favs;
+package com.herxlabs.politix.Adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 
 import com.github.siyamed.shapeimageview.RoundedImageView;
-import com.herxlabs.politix.model.Politico;
+import com.herxlabs.politix.Models.Politico;
 import com.herxlabs.politix.R;
-import com.herxlabs.politix.utils.Utils;
+import com.herxlabs.politix.Utils.Utils;
 
 import java.util.List;
 

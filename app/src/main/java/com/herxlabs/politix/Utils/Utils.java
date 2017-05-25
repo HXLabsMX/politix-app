@@ -1,4 +1,4 @@
-package com.herxlabs.politix.utils;
+package com.herxlabs.politix.Utils;
 
 import android.content.Context;
 
@@ -15,7 +15,7 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 
 /**
- * Created by HX on 08/05/2017.
+ * Coleccion de funciones para varias operaciones.
  */
 //https://inducesmile.com/android/how-to-make-circular-imageview-and-rounded-corner-imageview-in-android/
 //adopted from http://ruibm.com/2009/06/16/rounded-corner-bitmaps-on-android/
