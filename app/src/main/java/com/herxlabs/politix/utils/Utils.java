@@ -1,4 +1,4 @@
-package com.herxlabs.politix.Utils;
+package com.herxlabs.politix.utils;
 
 import android.content.Context;
 
@@ -20,18 +20,8 @@ import java.lang.reflect.Field;
 //https://inducesmile.com/android/how-to-make-circular-imageview-and-rounded-corner-imageview-in-android/
 //adopted from http://ruibm.com/2009/06/16/rounded-corner-bitmaps-on-android/
 public class Utils {
-    private Context context;
+    public Utils() {
 
-    public Utils(Context current) {
-        context = current;
-    }
-
-    public void setContext(Context current) {
-        context = current;
-    }
-
-    public Context getContext() {
-        return context;
     }
 
     public static int getDrawableId(String resName) {

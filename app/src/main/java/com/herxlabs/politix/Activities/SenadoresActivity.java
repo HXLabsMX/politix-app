@@ -1,7 +1,8 @@
-package com.herxlabs.politix.Acitivities;
+package com.herxlabs.politix.Activities;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,16 +13,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.herxlabs.politix.R;
-import com.herxlabs.politix.Models.Politico;
-import com.herxlabs.politix.Utils.Utils;
 import com.herxlabs.politix.Adapters.SenadoresAdapter;
+import com.herxlabs.politix.Models.Politico;
+import com.herxlabs.politix.R;
+import com.herxlabs.politix.utils.RecyclerItemClickListener;
+import com.herxlabs.politix.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,18 +34,17 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SenadoresActivity extends AppCompatActivity {
+public class SenadoresActivity extends AppCompatActivity  {
 
-    private List<Politico> politicosList = new ArrayList<>();
+    private List<Politico> senadoresFilteredList = new ArrayList<>();
+    private List<Politico> senadoresList = new ArrayList<>();
     private RecyclerView recyclerView;
     private SenadoresAdapter pAdapter;
-    private Utils utils;
     private ProgressDialog pDialog;
     @BindView(R.id.txtSearch) TextView txtSearch;
 
@@ -49,8 +53,6 @@ public class SenadoresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_senadores);
         ButterKnife.bind(this);
-
-        utils = new Utils(this);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -60,6 +62,30 @@ public class SenadoresActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getApplicationContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        // do whatever
+                        Intent intent = new Intent(getApplicationContext(), PersonActivity.class);
+                        intent.putExtra("POLITICO", senadoresFilteredList.get(position));
+                        startActivity(intent);
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
+        txtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    filter();
+                    return true;
+                }
+                return false;
+            }
+        });
         new GetSenadores().execute();
 
     }
@@ -86,9 +112,10 @@ public class SenadoresActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    void filter(String text){
+    void filter(){
+        String text = txtSearch.getText().toString();
         List<Politico> temp = new ArrayList<>();
-        for(Politico sen: politicosList){
+        for(Politico sen: senadoresList){
             text = text.toLowerCase();
             if(sen.getNombre().toLowerCase().contains(text)){
                 temp.add(sen);
@@ -99,9 +126,9 @@ public class SenadoresActivity extends AppCompatActivity {
             }
         }
         pAdapter.updateList(temp);
+        senadoresFilteredList = temp;
 
         recyclerView.scrollToPosition(0);
-//        recyclerView.setY(1);
         recyclerView.setAlpha(0.0f);
         recyclerView.animate()
                 .translationY(0)
@@ -128,7 +155,7 @@ public class SenadoresActivity extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             String json_file = "";
             try {
-                json_file = Utils.openJson("senadores", utils.getContext());
+                json_file = Utils.openJson("senadores", getApplicationContext());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -141,14 +168,17 @@ public class SenadoresActivity extends AppCompatActivity {
 
 
                     for (int i = 0; i < json_result.length(); i++) {
-                        HashMap<String, String> map = new HashMap<>();
                         JSONObject c = json_result.getJSONObject(i);
                         String nombre = c.optString("nombre");
                         String apellido = c.optString("apellido");
-                        String estado = c.optString("estado");
-                        Politico politico = new Politico(nombre ,apellido, estado);
+                        Politico politico = new Politico(nombre ,nombre, apellido);
                         politico.setFoto(c.optString("foto").toLowerCase());
-                        politicosList.add(politico);
+                        politico.setEmail(c.optString("email"));
+                        politico.setEstado(c.optString("estado"));
+                        politico.setFacebook(c.optString("facebook"));
+                        politico.setTwitter(c.optString("twitter"));
+                        politico.setYoutube(c.optString("yt"));
+                        senadoresList.add(politico);
                     }
 
                 } catch (final JSONException e) {
@@ -163,6 +193,7 @@ public class SenadoresActivity extends AppCompatActivity {
                     });
 
                 }
+                senadoresFilteredList = senadoresList;
             }
             return null;
         }
@@ -174,7 +205,7 @@ public class SenadoresActivity extends AppCompatActivity {
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
-            pAdapter = new SenadoresAdapter(politicosList);
+            pAdapter = new SenadoresAdapter(senadoresList);
             recyclerView.setAdapter(pAdapter);
             pAdapter.notifyDataSetChanged();
             txtSearch.addTextChangedListener(new TextWatcher() {
@@ -192,10 +223,9 @@ public class SenadoresActivity extends AppCompatActivity {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                final String value = s.toString();
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
-                        filter(value);
+                        filter();
                     }
                 }, 450);
                 }

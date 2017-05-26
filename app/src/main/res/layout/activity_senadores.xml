@@ -7,14 +7,17 @@
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.herxlabs.politix.Acitivities.SenadoresActivity">
+    tools:context="com.herxlabs.politix.Activities.SenadoresActivity">
 
     <EditText
         android:id="@+id/txtSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Buscar"
-        android:imeOptions="actionDone" />
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:singleLine="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sen_recycler_view"

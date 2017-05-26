@@ -3,38 +3,41 @@
     package="com.herxlabs.politix">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".Acitivities.MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Acitivities.PersonActivity"
+            android:name=".Activities.PersonActivity"
             android:label="@string/title_activity_person"
-            android:parentActivityName=".Acitivities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.herxlabs.politix.Acitivities.MainActivity" />
         </activity>
         <activity
-            android:name=".Acitivities.SenadoresActivity"
+            android:name=".Activities.SenadoresActivity"
             android:label="@string/title_activity_senadores"
-            android:parentActivityName=".Acitivities.MainActivity"
+            android:parentActivityName=".Activities.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.herxlabs.politix.Acitivities.MainActivity" />
+                android:value="com.herxlabs.politix.Activities.MainActivity" />
         </activity>
-        <activity android:name=".Acitivities.FavsActivity"></activity>
+        <activity
+            android:name=".Activities.FavsActivity"
+            android:label="@string/title_activity_favoritos"
+            android:parentActivityName=".Activities.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.herxlabs.politix.Activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

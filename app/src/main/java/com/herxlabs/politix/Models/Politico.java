@@ -1,11 +1,13 @@
 package com.herxlabs.politix.Models;
 
 
+import java.io.Serializable;
+
 /**
  * Modelo para la información de los policticos.
  */
 
-public class Politico {
+public class Politico implements Serializable{
     private String id;
     private String nombre;
     private String apellido;

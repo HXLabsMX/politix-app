@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.herxlabs.politix.Models.Politico;
 import com.herxlabs.politix.R;
-import com.herxlabs.politix.Utils.Utils;
+import com.herxlabs.politix.utils.Utils;
 
 import java.util.List;
 
@@ -26,11 +26,11 @@ public class FavsAdapter extends RecyclerView.Adapter<FavsAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         //        public TextView title, year, genre;
-        @BindView(R.id.nombre)
+        @BindView(R.id.persona_nombre)
         TextView nombre;
         @BindView(R.id.descripcion)
         TextView descripcion;
-        @BindView(R.id.foto)
+        @BindView(R.id.persona_foto)
         RoundedImageView foto;
 
         public MyViewHolder(View view) {

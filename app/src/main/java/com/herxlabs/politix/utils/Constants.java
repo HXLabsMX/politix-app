@@ -1,4 +1,4 @@
-package com.herxlabs.politix.Utils;
+package com.herxlabs.politix.utils;
 
 /**
  * Clase para almacenar las constantes del proyecto.

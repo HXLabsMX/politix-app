@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.herxlabs.politix.R;
 import com.herxlabs.politix.Models.Politico;
-import com.herxlabs.politix.Utils.Utils;
+import com.herxlabs.politix.utils.Utils;
 
 import java.util.List;
 
@@ -24,9 +24,9 @@ public class SenadoresAdapter extends RecyclerView.Adapter<SenadoresAdapter.MyVi
     private List<Politico> senList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.nombre) TextView nombre;
+        @BindView(R.id.persona_nombre) TextView nombre;
         @BindView(R.id.descripcion) TextView descripcion;
-        @BindView(R.id.foto) RoundedImageView foto;
+        @BindView(R.id.persona_foto) RoundedImageView foto;
 
         public MyViewHolder(View view) {
             super(view);
