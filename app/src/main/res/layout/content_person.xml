@@ -36,7 +36,7 @@
                 android:layout_toRightOf="@+id/persona_foto"
                 android:maxLines="4"
                 android:text="Persona"
-                android:textSize="30sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/persona_descripcion"
@@ -50,72 +50,165 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/social"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/persona_foto"
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/correo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/card_margin"
-                app:cardCornerRadius="@dimen/card_radius"
-                app:cardElevation="@dimen/card_elevation"
-                app:contentPadding="@dimen/card_content_padding">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/large_text" />
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
                 android:id="@+id/twitter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/card_margin"
+                android:layout_marginLeft="@dimen/card_margin"
+                android:layout_marginRight="@dimen/card_margin"
+                android:layout_marginTop="@dimen/card_margin"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/colorTwitter"
                 app:cardCornerRadius="@dimen/card_radius"
                 app:cardElevation="@dimen/card_elevation"
                 app:contentPadding="@dimen/card_content_padding">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/large_text" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start">
 
+                    <ImageView
+                        android:id="@+id/imgT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_twitter_white_48dp" />
+
+                    <TextView
+                        android:id="@+id/txtTwitter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/imgT"
+                        android:text="Twitter"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="25sp" />
+                </RelativeLayout>
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.CardView
-            android:id="@+id/facebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/card_margin"
-            app:cardCornerRadius="@dimen/card_radius"
-            app:cardElevation="@dimen/card_elevation"
-            app:contentPadding="@dimen/card_content_padding">
-
-            <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/facebook"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/large_text" />
+                android:layout_marginLeft="@dimen/card_margin"
+                android:layout_marginRight="@dimen/card_margin"
+                android:layout_marginTop="@dimen/card_margin"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/colorFacebook"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:contentPadding="@dimen/card_content_padding">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start">
+
+                    <ImageView
+                        android:id="@+id/imgF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_facebook_box_white_48dp" />
+
+                    <TextView
+                        android:id="@+id/txtFacebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/imgF"
+                        android:text="Facebook"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="25sp" />
+                </RelativeLayout>
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.CardView
                 android:id="@+id/youtube"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/card_margin"
+                android:layout_marginLeft="@dimen/card_margin"
+                android:layout_marginRight="@dimen/card_margin"
+                android:layout_marginTop="@dimen/card_margin"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/colorYoutube"
                 app:cardCornerRadius="@dimen/card_radius"
                 app:cardElevation="@dimen/card_elevation"
                 app:contentPadding="@dimen/card_content_padding">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/large_text" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start">
 
+                    <ImageView
+                        android:id="@+id/imgY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_youtube_play_white_48dp" />
+
+                    <TextView
+                        android:id="@+id/txtYoutube"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/imgY"
+                        android:text="Youtube"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="25sp" />
+                </RelativeLayout>
             </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/correo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_margin"
+                android:layout_marginLeft="@dimen/card_margin"
+                android:layout_marginRight="@dimen/card_margin"
+                android:layout_marginTop="@dimen/card_margin"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/colorEmail"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:contentPadding="@dimen/card_content_padding">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left">
+
+                    <ImageView
+                        android:id="@+id/imgC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_email_white_48dp" />
+
+                    <TextView
+                        android:id="@+id/txtCorreo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/imgC"
+                        android:text="Correo"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="25sp" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
     </LinearLayout>
 

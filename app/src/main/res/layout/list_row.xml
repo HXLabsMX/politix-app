@@ -14,7 +14,7 @@
         android:layout_marginRight="16dp"
         app:siBorderColor="#ccc"
         app:siBorderWidth="0dp"
-        app:siRadius="10dp"
+        app:siRadius="6dp"
         app:siSquare="false" />
 
     <TextView

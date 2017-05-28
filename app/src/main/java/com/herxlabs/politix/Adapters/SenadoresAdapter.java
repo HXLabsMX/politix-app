@@ -6,7 +6,6 @@ package com.herxlabs.politix.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.herxlabs.politix.Models.Politico;
 import com.herxlabs.politix.R;
-import com.herxlabs.politix.utils.Constants;
 import com.herxlabs.politix.utils.Utils;
 
 import java.util.ArrayList;
@@ -87,7 +85,6 @@ public class SenadoresAdapter extends RecyclerView.Adapter<SenadoresAdapter.MyVi
         });
         this.senListF = this.senListTotal;
         notifyDataSetChanged();
-        Log.e(Constants.TAG,this.senListTotal.toString());
     }
     public void sortByNombre(){
         Collections.sort(this.senListTotal, new Comparator<Politico>() {
@@ -98,7 +95,6 @@ public class SenadoresAdapter extends RecyclerView.Adapter<SenadoresAdapter.MyVi
         });
         this.senListF = this.senListTotal;
         notifyDataSetChanged();
-        Log.e(Constants.TAG,this.senListTotal.toString());
     }
 
     @Override
