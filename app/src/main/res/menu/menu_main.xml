@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.herxlabs.politix.Activities.SenadoresActivity">
     <item
-        android:id="@+id/action_byName"
+        android:id="@+id/action_donar"
         android:orderInCategory="100"
-        android:title="@string/action_sen_byName"
+        android:title="@string/action_donate"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_byState"
+        android:id="@+id/action_acercade"
         android:orderInCategory="100"
-        android:title="@string/action_sen_byState"
+        android:title="@string/action_about"
         app:showAsAction="never" />
 </menu>

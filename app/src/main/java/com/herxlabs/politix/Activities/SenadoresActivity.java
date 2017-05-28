@@ -40,8 +40,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SenadoresActivity extends AppCompatActivity  {
-
-    private List<Politico> senadoresFilteredList = new ArrayList<>();
     private List<Politico> senadoresList = new ArrayList<>();
     private RecyclerView recyclerView;
     private SenadoresAdapter pAdapter;
@@ -57,7 +55,7 @@ public class SenadoresActivity extends AppCompatActivity  {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         recyclerView = (RecyclerView) findViewById(R.id.sen_recycler_view);
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(mLayoutManager);
@@ -67,7 +65,7 @@ public class SenadoresActivity extends AppCompatActivity  {
                     @Override public void onItemClick(View view, int position) {
                         // do whatever
                         Intent intent = new Intent(getApplicationContext(), PersonActivity.class);
-                        intent.putExtra("POLITICO", senadoresFilteredList.get(position));
+                        intent.putExtra("POLITICO", pAdapter.getSelected(position));
                         startActivity(intent);
                     }
 
@@ -105,7 +103,11 @@ public class SenadoresActivity extends AppCompatActivity  {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_byName) {
+            pAdapter.sortByNombre();
+            return true;
+        }else if (id == R.id.action_byState) {
+            pAdapter.sortByEstado();
             return true;
         }
 
@@ -114,20 +116,7 @@ public class SenadoresActivity extends AppCompatActivity  {
 
     void filter(){
         String text = txtSearch.getText().toString();
-        List<Politico> temp = new ArrayList<>();
-        for(Politico sen: senadoresList){
-            text = text.toLowerCase();
-            if(sen.getNombre().toLowerCase().contains(text)){
-                temp.add(sen);
-            }else if(sen.getApellido().toLowerCase().contains(text)){
-                temp.add(sen);
-            }else if(sen.getEstado().toLowerCase().contains(text)){
-                temp.add(sen);
-            }
-        }
-        pAdapter.updateList(temp);
-        senadoresFilteredList = temp;
-
+        pAdapter.getFilter().filter(text);
         recyclerView.scrollToPosition(0);
         recyclerView.setAlpha(0.0f);
         recyclerView.animate()
@@ -193,7 +182,6 @@ public class SenadoresActivity extends AppCompatActivity  {
                     });
 
                 }
-                senadoresFilteredList = senadoresList;
             }
             return null;
         }
@@ -205,8 +193,9 @@ public class SenadoresActivity extends AppCompatActivity  {
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
-            pAdapter = new SenadoresAdapter(senadoresList);
+            pAdapter = new SenadoresAdapter(getApplicationContext(),senadoresList);
             recyclerView.setAdapter(pAdapter);
+            pAdapter.sortByNombre();
             pAdapter.notifyDataSetChanged();
             txtSearch.addTextChangedListener(new TextWatcher() {
                 @Override
