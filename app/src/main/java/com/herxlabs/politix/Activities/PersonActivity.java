@@ -1,5 +1,7 @@
 package com.herxlabs.politix.Activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +21,7 @@ import com.herxlabs.politix.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PersonActivity extends AppCompatActivity {
     private Politico politico;
@@ -57,11 +60,6 @@ public class PersonActivity extends AppCompatActivity {
         if(politico.getYoutube().isEmpty()) lSocial.removeView(cardYoutube);
         if(politico.getEmail().isEmpty()) lSocial.removeView(cardCorreo);
 
-//        pTwitter.setText(politico.getTwitter());
-//        pFacebook.setText(politico.getFacebook());
-//        pYoutube.setText(politico.getYoutube());
-//        pCorreo.setText(politico.getEmail());
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +70,32 @@ public class PersonActivity extends AppCompatActivity {
         });
 
     }
+    @OnClick(R.id.facebook)
+    public void fb() {
+        String link = politico.getFacebook();
+        Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        startActivity(openLink);
+    }
+    @OnClick(R.id.twitter)
+    public void tw() {
+        String link = politico.getTwitter();
+        Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        startActivity(openLink);
+    }
+    @OnClick(R.id.youtube)
+    public void yt() {
+        String link = politico.getYoutube();
+        Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        startActivity(openLink);
+    }
+    @OnClick(R.id.correo)
+    public void sendEmail() {
+        String dirCorreo = politico.getEmail();
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto",dirCorreo, null));
+        startActivity(Intent.createChooser(emailIntent, "Send email..."));
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
