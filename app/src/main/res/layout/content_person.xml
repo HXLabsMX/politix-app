@@ -36,7 +36,8 @@
                 android:layout_toRightOf="@+id/persona_foto"
                 android:maxLines="4"
                 android:text="Persona"
-                android:textSize="24sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/persona_descripcion"
