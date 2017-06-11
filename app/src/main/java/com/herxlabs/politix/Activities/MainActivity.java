@@ -44,19 +44,24 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_donar) {
-            try {
-                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.me/HerXLabsDonation/5"));
-                startActivity(myIntent);
-            } catch (ActivityNotFoundException e) {
-                Toast.makeText(this, "Por favor instala un navegador web.",  Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-            }
+            openDonations();
             return true;
         }else if (id == R.id.action_acercade) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void openDonations(){
+        try {
+            Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.me/HerXLabsDonation/5"));
+            startActivity(myIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "Por favor instala un navegador web.",  Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
 }

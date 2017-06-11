@@ -72,52 +72,23 @@ public class SenadoresActivity extends AppCompatActivity  implements SearchView.
                 })
         );
         new GetSenadores().execute();
-        handleIntent(getIntent());
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_senadores, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchMenuItem = menu.findItem(R.id.searchBar);
         searchView = (SearchView) searchMenuItem.getActionView();
-
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//        searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
         return true;
     }
-    @Override
-    protected void onNewIntent(Intent intent) {
-        handleIntent(intent);
-    }
-    private void handleIntent(Intent intent) {
 
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            filter(query);
-        }
-    }
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        filter(newText);
-        return true;
-    }
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_byName) {
             pAdapter.sortByNombre();
             return true;
@@ -140,13 +111,21 @@ public class SenadoresActivity extends AppCompatActivity  implements SearchView.
                 .setInterpolator(new AccelerateDecelerateInterpolator())
                 .start();
     }
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        filter(newText);
+        return true;
+    }
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
     private class GetSenadores extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Showing progress dialog
             pDialog = new ProgressDialog(SenadoresActivity.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
@@ -165,10 +144,7 @@ public class SenadoresActivity extends AppCompatActivity  implements SearchView.
             if (json_file != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json_file);
-
-                    // Getting JSON Array node
                     JSONArray json_result = jsonObj.getJSONArray("senadores");
-
 
                     for (int i = 0; i < json_result.length(); i++) {
                         JSONObject c = json_result.getJSONObject(i);
@@ -189,7 +165,7 @@ public class SenadoresActivity extends AppCompatActivity  implements SearchView.
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
+                                    "App error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
                         }
